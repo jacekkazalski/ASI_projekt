@@ -1,3 +1,15 @@
 data/data.csv
 data/test_data.csv
 data/train_data.csv
+plot/brand.png
+plot/engine_dist.png
+plot/fuel.png
+plot/gearbox.png
+plot/heatmap.png
+plot/mileage_dist.png
+plot/price_dist.png
+plot/Screenshot 2024-11-13 181703.png
+plot/voivodship.png
+plot/year_dist.png
+.~lock.report.odt#
+report.odt
