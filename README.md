@@ -62,3 +62,12 @@ Niektóre wartości w kolumnie voivodeship były nieprawidłowe. Po usunięciu w
 - voivodship - 16 unikalnych wartości
 
   ![](plot/voivodship.png)
+
+### Macierz korelacji
+![](plot/heatmap.png)
+
+Największy wpływ na cenę samochodu mają przebieg i rok produkcji.
+
+Marka samochodu ma całkiem wysoki wpływ na rodzaj skrzyni biegów.
+
+Wiek samochodu ma bardzo wysoki wpływ na jego przebieg.
