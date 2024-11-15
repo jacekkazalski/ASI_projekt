@@ -9,6 +9,7 @@ Dataset zawiera ponad 90,000 rekordów ofert sprzedaży z popularnej strony z au
 ## Analiza danych
 
 Dataset zawiera 10 kolumn i 91523 wierszy, nie posiada brakujących wartości.
+Do wygenerowania automatycznego raportu użyto pakietu pandas profling (ydata-profiling)
 ### Kolumny
 
 | Nazwa | Opis | Przykład |
