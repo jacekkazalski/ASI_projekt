@@ -33,12 +33,32 @@ Po wstępnym formatowaniu kolumn okazało się że dataset zawiera wiersze w kt�
 Niektóre wartości w kolumnie voivodeship były nieprawidłowe. Po usunięciu wierszy zostało 85632 rekordów.
 ### Analiza zmiennych
 - price_in_pln – ceny wahają się od 1111 do 2 599 000. Mediana to 46 500, ponad 75% cen jest poniżej 100 000 złotych.
+
+  ![](plot/price_dist.png)
 - mileage – średni przebieg to 147 002 km, dużo wartości (ponad 6000) poniżej 10 czyli samochody nowe
+
+  ![](plot/mileage_dist.png)
 - engine_capacity – średnia to 1893. Ponad 75% to silniki poniżej 2 litrów.
+
+  ![](plot/engine_dist.png)
 - year – średnia to 2013
+
+  ![](plot/year_dist.png)
 - brand – 43 unikalne wartości
+  
+  ![](plot/brand.png)
 - model – 18021 unikalnych wartości
+
+  ![](plot/brand.png)
 - gearbox
+
+  ![](plot/gearbox.png)
 - fuel_type – 6 unikalnych wartości, wyraźna większośc to benzyna lub diesel
+
+  ![](plot/fuel.png)
 - city – 4353 unikalnych wartości, najpopularniejsze to duze miasta wojewódzkie jak Warszawa, Kraków czy Wrocław
+
+  ![](plot/city.png)
 - voivodship - 16 unikalnych wartości
+
+  ![](plot/voivodship.png)
