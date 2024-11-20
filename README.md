@@ -96,3 +96,5 @@ Rekomendowane modele:
                hidden_layer_sizes=(89,), learning_rate_init=0.0051797995274544175,
                max_iter=32, n_iter_no_change=32, random_state=0,
                validation_fraction=0.0, verbose=0, warm_start=True)
+
+  Wybrany model - HistGradientBoostingRegressor(Ver1), uzyskał najlepsze wyniki r2 przy dobrym czasie trenowania.
