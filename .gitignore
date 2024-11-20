@@ -4,3 +4,4 @@ data/train_data.csv
 .~lock.report.odt#
 report.odt
 data/data_cleaned.csv
+creds/credentials.json
