@@ -97,4 +97,7 @@ Rekomendowane modele:
                max_iter=32, n_iter_no_change=32, random_state=0,
                validation_fraction=0.0, verbose=0, warm_start=True)
 
-  Wybrany model - HistGradientBoostingRegressor(Ver1), uzyskał najlepsze wyniki r2 przy dobrym czasie trenowania.
+Wybrany model - HistGradientBoostingRegressor(Ver1), uzyskał najlepsze wyniki r2 przy dobrym czasie trenowania.
+Wstępne wyniki prototypowego modelu:
+- średni błąd bezwzględny: 27 081
+- R^2: 0.64
