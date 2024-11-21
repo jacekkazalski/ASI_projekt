@@ -33,8 +33,7 @@ def upload_to_gsheets():
         train_sheet = sheet.worksheet("Train Data")
         sheet.del_worksheet(train_sheet) 
     except gspread.exceptions.WorksheetNotFound:
-        pass
-    train_sheet = sheet.add_worksheet(title="Train Data", rows=str(len(train_data)), cols=str(len(train_data.columns)))
+        train_sheet = sheet.add_worksheet(title="Train Data", rows=str(len(train_data)), cols=str(len(train_data.columns)))
     train_sheet.update([train_data.columns.values.tolist()] + train_data.values.tolist())
 
     # Upload Test Data
@@ -43,8 +42,7 @@ def upload_to_gsheets():
         test_sheet = sheet.worksheet("Test Data")
         sheet.del_worksheet(test_sheet)
     except gspread.exceptions.WorksheetNotFound:
-        pass
-    test_sheet = sheet.add_worksheet(title="Test Data", rows=str(len(test_data)), cols=str(len(test_data.columns)))
+        test_sheet = sheet.add_worksheet(title="Test Data", rows=str(len(test_data)), cols=str(len(test_data.columns)))
     test_sheet.update([test_data.columns.values.tolist()] + test_data.values.tolist())
 
 
