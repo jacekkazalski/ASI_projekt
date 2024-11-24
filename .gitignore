@@ -1,7 +1,3 @@
-data/data.csv
-data/test_data.csv
-data/train_data.csv
-.~lock.report.odt#
-report.odt
-data/data_cleaned.csv
-creds/credentials.json
+data/*
+.venv/*
+logs/*
