@@ -5,7 +5,7 @@ from sklearn.preprocessing import StandardScaler
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 # Configuration
-GOOGLE_SHEETS_CREDENTIALS = '/home/admin/airflow/creds/credentials.json'
+GOOGLE_SHEETS_CREDENTIALS = '/opt/airflow/creds/credentials.json'
 GOOGLE_SHEET_NAME = 'data_model'
 INPUT_WORKSHEET_NAME = 'Train Data'
 OUTPUT_WORKSHEET_NAME = 'Processed Data'
@@ -33,17 +33,17 @@ def data_cleanup():
     df = pd.read_csv('/tmp/data.csv')
     df = df.dropna()
     df = df.drop_duplicates()
-    df.to_csv('/tmp/data_cleaned.csv', index=False)
+    df.to_csv('/opt/airflow/data/data_cleaned.csv', index=False)
 
 def data_processing():
-    df = pd.read_csv('/tmp/data_cleaned.csv')
+    df = pd.read_csv('/opt/airflow/data/data_cleaned.csv')
 
     # Scaling numerical columns except price
     numerical_columns = df.select_dtypes(include=['number']).columns
     columns_to_scale = [col for col in numerical_columns if col != 'price_in_pln']
     scaler = StandardScaler()
     df[columns_to_scale] = scaler.fit_transform(df[columns_to_scale])
-    df.to_csv('/tmp/data_processed.csv')
+    df.to_csv('/opt/airflow/data/data_processed.csv')
 
 def upload_data():
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
@@ -51,7 +51,7 @@ def upload_data():
     client = gspread.authorize(credentials)
 
     sheet = client.open(GOOGLE_SHEET_NAME)
-    data = pd.read_csv('/tmp/data_processed.csv')
+    data = pd.read_csv('/opt/airflow/data/data_processed.csv')
     try:
         worksheet = sheet.worksheet(OUTPUT_WORKSHEET_NAME)
 

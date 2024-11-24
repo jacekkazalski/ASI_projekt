@@ -7,8 +7,8 @@ import gspread
 from google.oauth2.service_account import Credentials
 
 # Configuration
-LOCAL_CSV_PATH = '/home/admin/airflow/data/data_cleaned.csv'
-GOOGLE_SHEETS_CREDENTIALS = '/home/admin/airflow/creds/credentials.json'
+LOCAL_CSV_PATH = '/opt/airflow/data/data_cleaned.csv'
+GOOGLE_SHEETS_CREDENTIALS = '/opt/airflow/creds/credentials.json'
 GOOGLE_SHEET_NAME = 'data_model'
 
 # Reads the csv and splits it into two sets
@@ -33,7 +33,8 @@ def upload_to_gsheets():
         train_sheet = sheet.worksheet("Train Data")
         sheet.del_worksheet(train_sheet) 
     except gspread.exceptions.WorksheetNotFound:
-        train_sheet = sheet.add_worksheet(title="Train Data", rows=str(len(train_data)), cols=str(len(train_data.columns)))
+        pass    
+    train_sheet = sheet.add_worksheet(title="Train Data", rows=str(len(train_data)), cols=str(len(train_data.columns)))
     train_sheet.update([train_data.columns.values.tolist()] + train_data.values.tolist())
 
     # Upload Test Data
@@ -42,7 +43,8 @@ def upload_to_gsheets():
         test_sheet = sheet.worksheet("Test Data")
         sheet.del_worksheet(test_sheet)
     except gspread.exceptions.WorksheetNotFound:
-        test_sheet = sheet.add_worksheet(title="Test Data", rows=str(len(test_data)), cols=str(len(test_data.columns)))
+        pass    
+    test_sheet = sheet.add_worksheet(title="Test Data", rows=str(len(test_data)), cols=str(len(test_data.columns)))
     test_sheet.update([test_data.columns.values.tolist()] + test_data.values.tolist())
 
 
