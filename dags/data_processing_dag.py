@@ -45,9 +45,15 @@ def data_processing():
     df[columns_to_scale] = scaler.fit_transform(df[columns_to_scale])
 
     # Encoding categorical columns and saving the encoder
+    print(df.head())
     categorical_columns = ['brand', 'gearbox', 'fuel_type']
-    encoder = OneHotEncoder()
-    df[categorical_columns] = encoder.fit_transform(df[categorical_columns])
+    encoder = OneHotEncoder(sparse_output=False)
+    encoded_data = encoder.fit_transform(df[categorical_columns])
+    print(encoded_data)
+    encoded_columns = encoder.get_feature_names_out(categorical_columns)
+    encoded_df = pd.DataFrame(encoded_data, columns=encoded_columns, index=df.index)
+    df = df.drop(columns=categorical_columns)
+    df = pd.concat([df, encoded_df], axis=1)
     df.to_csv('/opt/airflow/data/data_processed.csv')
 
 def upload_data():
