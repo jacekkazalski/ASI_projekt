@@ -33,6 +33,7 @@ def data_cleanup():
     df = pd.read_csv('/tmp/data.csv')
     df = df.dropna()
     df = df.drop_duplicates()
+    df.drop(columns=['model', 'city', 'voivodeship'], inplace=True)
     df.to_csv('/opt/airflow/data/data_cleaned.csv', index=False)
 
 def data_processing():
