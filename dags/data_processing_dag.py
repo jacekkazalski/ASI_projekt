@@ -1,7 +1,7 @@
 import pandas as pd
 import gspread
 from google.oauth2.service_account import Credentials
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 # Configuration
@@ -43,6 +43,11 @@ def data_processing():
     columns_to_scale = [col for col in numerical_columns if col != 'price_in_pln']
     scaler = StandardScaler()
     df[columns_to_scale] = scaler.fit_transform(df[columns_to_scale])
+
+    # Encoding categorical columns and saving the encoder
+    categorical_columns = ['brand', 'gearbox', 'fuel_type']
+    encoder = OneHotEncoder()
+    df[categorical_columns] = encoder.fit_transform(df[categorical_columns])
     df.to_csv('/opt/airflow/data/data_processed.csv')
 
 def upload_data():
