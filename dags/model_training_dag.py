@@ -54,12 +54,12 @@ with DAG(
 ) as dag:
     # Task load and split data
     load_task = PythonOperator(
-        task_id='load_data'
+        task_id='load_data',
         python_callable=load_data
     )
     # Task train model and generate a report
     train_task = PythonOperator(
-        task_id='train_model'
+        task_id='train_model',
         python_callable=train_model
     )
 
