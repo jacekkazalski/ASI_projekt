@@ -5,6 +5,7 @@ from sklearn.metrics import r2_score, mean_absolute_error
 from joblib import dump
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+import numpy as np
 
 LOCAL_CSV_PATH = "/opt/airflow/data/data_processed.csv"
 REPORT_PATH = "/opt/airflow/reports/model_report.txt"
@@ -17,7 +18,17 @@ def load_data():
     y = df['price_in_pln']
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
 
+    x_train.to_csv('/opt/airflow/data/x_train.csv', index=False)
+    x_test.to_csv('/opt/airflow/data/x_test.csv', index=False)
+    y_train.to_csv('/opt/airflow/data/y_train.csv', index=False)
+    y_test.to_csv('/opt/airflow/data/y_test.csv', index=False)
+
 def train_model():
+    x_train = pd.read_csv('/opt/airflow/data/x_train.csv')
+    x_test = pd.read_csv('/opt/airflow/data/x_test.csv')
+    y_train = pd.read_csv('/opt/airflow/data/y_train.csv').squeeze()
+    y_test = pd.read_csv('/opt/airflow/data/y_test.csv').squeeze() 
+
     # Model training
     model = HistGradientBoostingRegressor(
         l2_regularization=2.208787572338781e-05,
