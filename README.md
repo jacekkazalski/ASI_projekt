@@ -96,8 +96,26 @@ Rekomendowane modele:
                hidden_layer_sizes=(89,), learning_rate_init=0.0051797995274544175,
                max_iter=32, n_iter_no_change=32, random_state=0,
                validation_fraction=0.0, verbose=0, warm_start=True)
+  
 
 Wybrany model - HistGradientBoostingRegressor(Ver1), uzyskał najlepsze wyniki r2 przy dobrym czasie trenowania.
 Wstępne wyniki prototypowego modelu:
 - średni błąd bezwzględny: 27 081
 - R^2: 0.64
+
+## Korzystanie z api
+Po zklonowaniu repozytorium z poziomu głównego folderu poprzez powershell.
+
+Budowanie obrazu:
+```
+docker build -t predict-app -f api/Dockerfile .
+
+```
+Uruchamianie obrazu:
+```
+docker run -p 5000:5000 predict-app
+```
+Predykcja dla przykładowych danych z pliku json.
+```
+curl.exe -X POST -F "file=@api/data.json" http://127.0.0.1:5000/predict
+```
