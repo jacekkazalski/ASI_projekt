@@ -4,6 +4,7 @@ from google.oauth2.service_account import Credentials
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+from joblib import dump
 # Configuration
 GOOGLE_SHEETS_CREDENTIALS = '/opt/airflow/creds/credentials.json'
 GOOGLE_SHEET_NAME = 'data_model'
@@ -44,6 +45,7 @@ def data_processing():
     columns_to_scale = [col for col in numerical_columns if col != 'price_in_pln']
     scaler = StandardScaler()
     df[columns_to_scale] = scaler.fit_transform(df[columns_to_scale])
+    dump(scaler, "/opt/airflow/models/scaler.pkl")
 
     # Encoding categorical columns and saving the encoder
     print(df.head())
@@ -56,6 +58,7 @@ def data_processing():
     df = df.drop(columns=categorical_columns)
     df = pd.concat([df, encoded_df], axis=1)
     df.to_csv('/opt/airflow/data/data_processed.csv')
+    dump(encoder, "/opt/airflow/models/encoder.pkl")
 
 def upload_data():
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]

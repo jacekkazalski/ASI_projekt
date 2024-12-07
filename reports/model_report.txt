@@ -1,0 +1,16 @@
+Model Performance Report
+========================
+R^2: 0.5821
+Mean Absolute Error: 28843.0486
+Model Performance Report
+========================
+R^2: 0.5821
+Mean Absolute Error: 28843.0486
+Model Performance Report
+========================
+R^2: 0.5821
+Mean Absolute Error: 28843.0486
+Model Performance Report
+========================
+R^2: 0.5821
+Mean Absolute Error: 28843.0486

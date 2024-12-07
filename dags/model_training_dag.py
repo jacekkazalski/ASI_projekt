@@ -56,7 +56,7 @@ def train_model():
         report_file.write(f"Mean Absolute Error: {mae:.4f}\n")
 
     # Save model to file
-    dump(model, "/opt/airflow/models/model.joblib")
+    dump(model, "/opt/airflow/models/model.pkl")
 
 with DAG(
     'model_training',

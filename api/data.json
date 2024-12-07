@@ -1,0 +1,4 @@
+[
+    {"brand": "volvo", "mileage": 100000, "gearbox": "automatic", "engine_capacity": 2000, "fuel_type": "Benzyna", "year": 1999},
+    {"brand": "kia", "mileage": 10000, "gearbox": "manual", "engine_capacity": 1600, "fuel_type": "Diesel", "year": 2010}
+]
