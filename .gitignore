@@ -3,3 +3,4 @@ data/*
 logs/*
 dags/__pycache__/*
 .conda/*
+creds/*
