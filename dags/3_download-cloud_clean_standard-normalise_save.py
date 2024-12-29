@@ -8,7 +8,7 @@ from joblib import dump
 # Configuration
 GOOGLE_SHEETS_CREDENTIALS = '/opt/airflow/creds/credentials.json'
 GOOGLE_SHEET_NAME = 'data_model'
-INPUT_WORKSHEET_NAME = 'Train Data'
+INPUT_WORKSHEET_NAME = 'Model Data'
 OUTPUT_WORKSHEET_NAME = 'Processed Data'
 
 def download_data():
@@ -34,11 +34,24 @@ def data_cleanup():
     df = pd.read_csv('/tmp/data.csv')
     df = df.dropna()
     df = df.drop_duplicates()
+
+    # Droping rows with mismatched data and converting mileage to numeric
+    df = df[df['mileage'].str.contains("km", na=False)]
+    df['mileage'] = df['mileage'].str.replace("km", "").str.replace(" ", "").astype(float)
+
+    # Droping rows with mismatched data and converting engine_capacity to numeric
+    df = df[df['engine_capacity'].str.contains("cm3", na=False)]
+    df['engine_capacity'] = df['engine_capacity'].str.replace("cm3", "").str.replace(" ", "").astype(float)
+
+    # Converting year to numeric
+    df['year'] = pd.to_numeric(df['year'])
+
+    # Dropping unnecessary columns
     df.drop(columns=['model', 'city', 'voivodeship'], inplace=True)
-    df.to_csv('/opt/airflow/data/data_cleaned.csv', index=False)
+    df.to_csv('/tmp/data_cleaned.csv', index=False)
 
 def data_processing():
-    df = pd.read_csv('/opt/airflow/data/data_cleaned.csv')
+    df = pd.read_csv('/tmp/data_cleaned.csv')
 
     # Scaling numerical columns except price
     numerical_columns = df.select_dtypes(include=['number']).columns
@@ -57,7 +70,7 @@ def data_processing():
     encoded_df = pd.DataFrame(encoded_data, columns=encoded_columns, index=df.index)
     df = df.drop(columns=categorical_columns)
     df = pd.concat([df, encoded_df], axis=1)
-    df.to_csv('/opt/airflow/data/data_processed.csv')
+    df.to_csv('/tmp/data_processed.csv')
     dump(encoder, "/opt/airflow/models/encoder.pkl")
 
 def upload_data():
@@ -66,7 +79,7 @@ def upload_data():
     client = gspread.authorize(credentials)
 
     sheet = client.open(GOOGLE_SHEET_NAME)
-    data = pd.read_csv('/opt/airflow/data/data_processed.csv')
+    data = pd.read_csv('/tmp/data_processed.csv')
     try:
         worksheet = sheet.worksheet(OUTPUT_WORKSHEET_NAME)
 
@@ -76,7 +89,7 @@ def upload_data():
     worksheet.update([data.columns.values.tolist()] + data.values.tolist())
 
 with DAG(
-    'download_and_process_data',
+    'download-cloud_clean_sandard-normalise_save',
     schedule_interval=None,
     catchup=False,
 ) as dag:
