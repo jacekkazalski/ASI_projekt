@@ -1,4 +1,6 @@
-# s22393_CarPricePrediction
+# CarPricePrediction
+
+Projekt końcowy z przedmiotu ASI (Architektury rozwiązań i wdrożeń SI). Projekt polega na zbudowaniu pipelinu pozwalającego na ciągłe wdrażanie zmian i dostarczanie nowych danych do aplikacji.
 ## Cel projektu
 Celem projektu jest stworzenie modelu pozwalającego na przewidywanie ceny używanego samochodu na podstawie podanych prametrów.
 
